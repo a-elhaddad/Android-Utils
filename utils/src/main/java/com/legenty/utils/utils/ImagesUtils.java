@@ -26,7 +26,6 @@ import android.support.v4.content.ContextCompat;
 import android.util.Base64;
 import android.util.Log;
 
-import com.google.gson.Gson;
 import com.legenty.utils.R;
 
 import java.io.ByteArrayOutputStream;
@@ -419,7 +418,6 @@ public class ImagesUtils {
 
 
     public void requestPermissionResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        Log.d(TAG, "requestPermissionResult: " + new Gson().toJson(grantResults));
         switch (requestCode) {
             case 1:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {

@@ -188,7 +188,7 @@ public class NotificationUtils {
             r.play();
 
 
-            Vibrator vibrator = (Vibrator) App.getInstance().getCurrentAct().getSystemService(Context.VIBRATOR_SERVICE);
+            Vibrator vibrator = (Vibrator) App.getInstance().getSystemService(Context.VIBRATOR_SERVICE);
             vibrator.vibrate(200L);
 
         } catch (Exception e) {
