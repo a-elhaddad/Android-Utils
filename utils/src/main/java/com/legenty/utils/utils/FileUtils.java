@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.v4.content.FileProvider;
 
-import com.google.gson.Gson;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -26,7 +25,7 @@ public class FileUtils {
             Writer output;
             File file = new File("/storage/emulated/0/Field audit/" + name);
             output = new BufferedWriter(new FileWriter(file));
-            output.write(new Gson().toJson(input));
+            output.write(input.toString());
             output.close();
 
 
