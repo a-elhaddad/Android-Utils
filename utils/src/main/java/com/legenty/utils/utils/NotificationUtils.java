@@ -20,7 +20,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 
-import com.legenty.utils.App;
 import com.legenty.utils.AppConstant;
 
 import java.io.IOException;
@@ -188,7 +187,7 @@ public class NotificationUtils {
             r.play();
 
 
-            Vibrator vibrator = (Vibrator) App.getInstance().getSystemService(Context.VIBRATOR_SERVICE);
+            Vibrator vibrator = (Vibrator) AvenirUtils.getInstance().getSystemService(Context.VIBRATOR_SERVICE);
             vibrator.vibrate(200L);
 
         } catch (Exception e) {

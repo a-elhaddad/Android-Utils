@@ -11,8 +11,6 @@ import android.net.Uri;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import com.legenty.utils.App;
-
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
@@ -347,14 +345,14 @@ public class NetworkUtils {
     static public boolean isInternetConnectionAvailable(boolean update) {
         long delta = System.currentTimeMillis() - lastTimeInternetConnectionChecked;
         if (delta < 0 || delta > 15000 || update) {
-            internetConnectionAvailable = isInternetConnected(App.getInstance());
+            internetConnectionAvailable = isInternetConnected();
         }
         return internetConnectionAvailable;
     }
 
-    public boolean isWifiConnected(App app) {
+    public boolean isWifiConnected() {
         try {
-            ConnectivityManager mgr = (ConnectivityManager) app.getSystemService(Context.CONNECTIVITY_SERVICE);
+            ConnectivityManager mgr = (ConnectivityManager) AvenirUtils.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo ni = mgr.getActiveNetworkInfo();
             return ni != null && ni.getType() == ConnectivityManager.TYPE_WIFI;
         } catch (Exception e) {
@@ -362,9 +360,9 @@ public class NetworkUtils {
         }
     }
 
-    public static boolean isInternetConnected(App app) {
+    public static boolean isInternetConnected() {
         try {
-            ConnectivityManager mgr = (ConnectivityManager) app.getSystemService(Context.CONNECTIVITY_SERVICE);
+            ConnectivityManager mgr = (ConnectivityManager) AvenirUtils.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo active = mgr.getActiveNetworkInfo();
             if (active == null) {
                 return false;

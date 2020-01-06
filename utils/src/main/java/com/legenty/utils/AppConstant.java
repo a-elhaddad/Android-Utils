@@ -7,44 +7,15 @@ import java.util.HashMap;
 
 public class AppConstant {
 
-    public static final int UNKNOWN_VALUE = -1;
-
-
-    public static final String DATABASE_NAME = "terredacote.db";
-    public static final int DATABASE_VERSION = 14;
-
-
     public static final int NOTIFICATION_ID = 100;
     public static final int NOTIFICATION_ID_BIG_IMAGE = 101;
 
-    public static final String DATA_TO_DELETE = "3";
-    public static final String DATA_TO_INSERT = "0";
-    public static final String DATA_TO_UPDATE = "2";
-    public static final String DATA_UPDATED = "1";
     public static final String PATH;
-    public static final String PATH_END_POINT = "https://terredacote.com/";
-    public static final String PATH_NOTIF = "notif";
-    public static final String PATH_PRODUCT = "product";
-    public static final String PATH_ORDER = "order";
-    public static final String PATH_SESSION = "session";
 
-    public static final Integer PRESC_DONE = Integer.valueOf(1);
-    public static final Integer PRESC_ERROR = Integer.valueOf(2);
-    public static final Integer PRESC_PENDING = Integer.valueOf(3);
+    static {
+        PATH = Environment.getExternalStorageDirectory() + File.separator + "AvenirUtils" + File.separator;
+    }
 
-    public static final String SERVICE_ACTION = "terredacote_ACTION";
-
-    public static final String SESSION_TO_LOGOUT = "3";
-    public static final String SESSION_TO_UPDATE = "2";
-    public static final String SESSION_UPDATED = "1";
-
-    public static final String PATH_TICKET = "ticket";
-    public static final Integer TICKET_GO_BACK = 0;
-    public static final Integer TICKET_GO_ONLY = 1;
-
-    static HashMap<String, String> CITIES;
-    public static final String[] GENDER = new String[]{"Homme", "Femme"};
-    public static final String[] PHONE_NUMBERS = new String[]{"0659218902", "0556199586"};
     public static String[] STATE = new String[]{
             "01 - Adrar",
             "02 - Chlef",
@@ -94,14 +65,9 @@ public class AppConstant {
             "46 - Aïn Témouchent",
             "47 - Ghardaïa",
             "48 - Relizane"};
-    public static final CharSequence[] PRODUCT_CAT = new String[]{"E-visa", "Omra", "Immigration", "Voyage organisé"};//, "Billetterie", "Réservations d'hotel"};
 
-    public static final Integer TIME_FETCH = 3000;
 
-    static {
-        PATH = Environment.getExternalStorageDirectory() + File.separator + App.getInstance().getString(R.string.app_name) + File.separator;
-    }
-
+    static HashMap<String, String> CITIES;
     public static String getCityName(String postalCode) {
         if (CITIES == null) {
             CITIES = new HashMap();
@@ -1648,17 +1614,5 @@ public class AppConstant {
             CITIES.put("48038", "Ouled Sidi Mihoub");
         }
         return CITIES.get(postalCode);
-    }
-
-    public static String getCat(Integer idCat) {
-        HashMap<Integer, String> categories = new HashMap();
-        categories.put(1, "E-Visa");
-        categories.put(2, "Omra");
-        categories.put(3, "Immigration");
-        categories.put(4, "Voyage organisé");
-        categories.put(5, "Billetterie");
-        categories.put(6, "Réservations d'hotel");
-
-        return (String) categories.get(idCat)+"<font color=\"#F73859\">.</font>";
     }
 }

@@ -1,11 +1,10 @@
 package com.legenty.utils.utils;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
-
-import com.legenty.utils.App;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -38,7 +37,7 @@ public class AndroidNetworkUtils {
         void onResult(String result);
     }
 
-    public static void sendRequestsAsync(final App ctx,
+    public static void sendRequestsAsync(final Context ctx,
                                          final List<Request> requests,
                                          final OnRequestResultListener listener) {
 
@@ -67,7 +66,7 @@ public class AndroidNetworkUtils {
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (Void) null);
     }
 
-    public static void sendRequestAsync(final App ctx,
+    public static void sendRequestAsync(final Context ctx,
                                         final String url,
                                         final Map<String, String> parameters,
                                         final String userOperation,
@@ -97,7 +96,7 @@ public class AndroidNetworkUtils {
     }
 
 
-    public static String sendRequest(App ctx, String url, Map<String, String> parameters,
+    public static String sendRequest(Context ctx, String url, Map<String, String> parameters,
                                      String userOperation, boolean toastAllowed, boolean post) {
         HttpURLConnection connection = null;
         try {
@@ -186,7 +185,7 @@ public class AndroidNetworkUtils {
         return null;
     }
 
-    public static Bitmap downloadImage(App ctx, String url) {
+    public static Bitmap downloadImage(Context ctx, String url) {
         Bitmap res = null;
         try {
             URLConnection connection = NetworkUtils.getHttpURLConnection(url);

@@ -4,8 +4,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Patterns;
 
-import com.legenty.utils.App;
-
 import java.util.Locale;
 import java.util.UUID;
 
@@ -51,9 +49,4 @@ public class StringUtils {
     String getUUID() {
         return UUID.randomUUID().toString();
     }
-
-    public static String resolve(int id){
-        return App.getResourses().getString(id);
-    }
-
 }

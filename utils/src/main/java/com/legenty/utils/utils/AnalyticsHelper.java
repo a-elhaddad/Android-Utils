@@ -1,13 +1,13 @@
 package com.legenty.utils.utils;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.legenty.utils.App;
 import com.legenty.utils.AppConstant;
 
 import org.json.JSONArray;
@@ -27,7 +27,9 @@ public class AnalyticsHelper extends SQLiteOpenHelper {
 
     public static final String TAG = AnalyticsHelper.class.getSimpleName();
 
-    private final static String ANALYTICS_UPLOAD_URL = AppConstant.PATH_END_POINT + "analytics/submit";
+
+
+
     private final static String ANALYTICS_FILE_NAME = "analytics.json";
 
     private final static int DATA_PARCEL_SIZE = 500; // 500 events
@@ -59,7 +61,7 @@ public class AnalyticsHelper extends SQLiteOpenHelper {
 
     private String insertEventScript;
     private long lastSubmittedTime;
-    private App app;
+    private Context app;
     private ExecutorService executor = Executors.newSingleThreadExecutor();
     private Future<?> submittingTask;
 
@@ -78,7 +80,7 @@ public class AnalyticsHelper extends SQLiteOpenHelper {
         List<AnalyticsItem> items;
     }
 
-    public AnalyticsHelper(App ctx) {
+    public AnalyticsHelper(Context ctx) {
         super(ctx, DATABASE_NAME, null, DATABASE_VERSION);
         this.app = ctx;
         insertEventScript = "INSERT INTO " + TABLE_NAME + " VALUES (?, ?, ?, ?, ?)";
@@ -166,8 +168,8 @@ public class AnalyticsHelper extends SQLiteOpenHelper {
                     additionalData.put(PARAM_OS, "android");
                     additionalData.put(PARAM_START_DATE, String.valueOf(d.startDate));
                     additionalData.put(PARAM_FINISH_DATE, String.valueOf(d.finishDate));
-                    additionalData.put(PARAM_VERSION, VersionUtils.getFullVersion(App.getInstance()));
-                    additionalData.put(PARAM_LANG, App.getInstance().getLanguage() + "");
+                    additionalData.put(PARAM_VERSION, VersionUtils.getFullVersion(AvenirUtils.getInstance()));
+                    additionalData.put(PARAM_LANG, AvenirUtils.getLanguage() + "");
                     //additionalData.put(PARAM_FIRST_INSTALL_DAYS, String.valueOf(App.getInstance().getAppInitializer().getFirstInstalledDays()));
                     //additionalData.put(PARAM_NUMBER_OF_STARTS, String.valueOf(ctx.getAppInitializer().getNumberOfStarts()));
                     //additionalData.put(PARAM_USER_ID, ctx.getUserAndroidId());
@@ -181,7 +183,7 @@ public class AnalyticsHelper extends SQLiteOpenHelper {
                     String jsonStr = json.toString();
                     Log.d(TAG, "submitCollectedData: " + jsonStr);
                     InputStream inputStream = new ByteArrayInputStream(jsonStr.getBytes());
-                    String res = AndroidNetworkUtils.uploadFile(ANALYTICS_UPLOAD_URL, inputStream, ANALYTICS_FILE_NAME, true, additionalData);
+                    String res = AndroidNetworkUtils.uploadFile(AvenirUtils.getAnalyticsUploadUrl(), inputStream, ANALYTICS_FILE_NAME, true, additionalData);
                     if (res != null) {
                         return;
                     }
@@ -275,4 +277,6 @@ public class AnalyticsHelper extends SQLiteOpenHelper {
             }
         }
     }
+
+
 }

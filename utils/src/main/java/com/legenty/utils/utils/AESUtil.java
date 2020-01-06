@@ -25,28 +25,22 @@ public abstract class AESUtil {
     private static final String defaultV = "0";
 
     public static String encrypt(String key, String src) throws Exception {
-        // /src = Base64.encodeToString(src.getBytes(), Base64.DEFAULT);
-        byte[] rawKey = toMakekey(key, keyLength, defaultV).getBytes();// key.getBytes();
+        byte[] rawKey = toMakekey(key, keyLength, defaultV).getBytes();
         byte[] result = encrypt(rawKey, src.getBytes("utf-8"));
-        // result = Base64.encode(result, Base64.DEFAULT);
         return toHex(result);
     }
 
 
     public static String encrypt2Java(String key, String src) throws Exception {
-        // /src = Base64.encodeToString(src.getBytes(), Base64.DEFAULT);
-        byte[] rawKey = toMakekey(key, keyLength, defaultV).getBytes();// key.getBytes();
+        byte[] rawKey = toMakekey(key, keyLength, defaultV).getBytes();
         byte[] result = encrypt2Java(rawKey, src.getBytes("utf-8"));
-        // result = Base64.encode(result, Base64.DEFAULT);
         return toHex(result);
     }
 
     public static String decrypt(String key, String encrypted) throws Exception {
-        byte[] rawKey = toMakekey(key, keyLength, defaultV).getBytes();// key.getBytes();
+        byte[] rawKey = toMakekey(key, keyLength, defaultV).getBytes();
         byte[] enc = toByte(encrypted);
-        // enc = Base64.decode(enc, Base64.DEFAULT);
         byte[] result = decrypt(rawKey, enc);
-        // /result = Base64.decode(result, Base64.DEFAULT);
         return new String(result, "utf-8");
     }
 
@@ -126,31 +120,18 @@ public abstract class AESUtil {
 
 
     public static Cipher initAESCipher(String sKey, int cipherMode) {
-        // 创建Key gen
-        // KeyGenerator keyGenerator = null;
         Cipher cipher = null;
         try {
-            /*
-             * keyGenerator = KeyGenerator.getInstance("AES");
-             * keyGenerator.init(128, new SecureRandom(sKey.getBytes()));
-             * SecretKey secretKey = keyGenerator.generateKey(); byte[]
-             * codeFormat = secretKey.getEncoded(); SecretKeySpec key = new
-             * SecretKeySpec(codeFormat, "AES"); cipher =
-             * Cipher.getInstance("AES"); //初始化 cipher.init(cipherMode, key);
-             */
             byte[] rawKey = toMakekey(sKey, keyLength, defaultV).getBytes();
             SecretKeySpec skeySpec = new SecretKeySpec(rawKey, "AES");
             cipher = Cipher.getInstance("AES");
             cipher.init(cipherMode, skeySpec, new IvParameterSpec(new byte[cipher.getBlockSize()]));
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();  // To change body of catch statement use File |
-            // Settings | File Templates.
+            e.printStackTrace();
         } catch (NoSuchPaddingException e) {
-            e.printStackTrace();  // To change body of catch statement use File |
-            // Settings | File Templates.
+            e.printStackTrace();
         } catch (InvalidKeyException e) {
-            e.printStackTrace();  // To change body of catch statement use File |
-            // Settings | File Templates.
+            e.printStackTrace();
         } catch (InvalidAlgorithmParameterException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -160,7 +141,7 @@ public abstract class AESUtil {
 
 
     public static File encryptFile(File sourceFile, String toFile, String dir, String sKey) {
-        // 新建临时加密文件
+
         File encrypfile = null;
         InputStream inputStream = null;
         OutputStream outputStream = null;
@@ -169,7 +150,6 @@ public abstract class AESUtil {
             encrypfile = new File(dir + toFile);
             outputStream = new FileOutputStream(encrypfile);
             Cipher cipher = initAESCipher(sKey, Cipher.ENCRYPT_MODE);
-            // 以加密流写入文件
             CipherInputStream cipherInputStream = new CipherInputStream(inputStream, cipher);
             byte[] cache = new byte[1024];
             int nRead = 0;
@@ -179,23 +159,19 @@ public abstract class AESUtil {
             }
             cipherInputStream.close();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();  // To change body of catch statement use File |
-            // Settings | File Templates.
+            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();  // To change body of catch statement use File |
-            // Settings | File Templates.
+            e.printStackTrace();
         } finally {
             try {
                 inputStream.close();
             } catch (IOException e) {
-                e.printStackTrace();  // To change body of catch statement use
-                // File | Settings | File Templates.
+                e.printStackTrace();
             }
             try {
                 outputStream.close();
             } catch (IOException e) {
-                e.printStackTrace();  // To change body of catch statement use
-                // File | Settings | File Templates.
+                e.printStackTrace();
             }
         }
         return encrypfile;
@@ -219,20 +195,17 @@ public abstract class AESUtil {
             }
             cipherOutputStream.close();
         } catch (IOException e) {
-            e.printStackTrace();  // To change body of catch statement use File |
-            // Settings | File Templates.
+            e.printStackTrace();
         } finally {
             try {
                 inputStream.close();
             } catch (IOException e) {
-                e.printStackTrace();  // To change body of catch statement use
-                // File | Settings | File Templates.
+                e.printStackTrace();
             }
             try {
                 outputStream.close();
             } catch (IOException e) {
-                e.printStackTrace();  // To change body of catch statement use
-                // File | Settings | File Templates.
+                e.printStackTrace();
             }
         }
         return decryptFile;

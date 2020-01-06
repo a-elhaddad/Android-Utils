@@ -1,10 +1,10 @@
 package com.legenty.utils.utils;
 
 
+import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
-import com.legenty.utils.App;
 import com.legenty.utils.R;
 
 import java.io.UnsupportedEncodingException;
@@ -22,7 +22,7 @@ public class VersionUtils {
 
 	
 	
-	private VersionUtils(App ctx) {
+	private VersionUtils(Context ctx) {
 		String appVersion = "";
 		int versionCode = -1;
 		try {
@@ -37,34 +37,34 @@ public class VersionUtils {
 	}
 
 	private static VersionUtils ver = null;
-	private static VersionUtils getVersion(App ctx){
+	private static VersionUtils getVersion(Context ctx){
 		if (ver == null) {
 			ver = new VersionUtils(ctx);
 		}
 		return ver;
 	}
 	
-	public static String getFullVersion(App ctx){
+	public static String getFullVersion(Context ctx){
 		VersionUtils v = getVersion(ctx);
 		return v.appName + " " + v.appVersion;
 	}
 	
-	public static String getAppVersion(App ctx){
+	public static String getAppVersion(Context ctx){
 		VersionUtils v = getVersion(ctx);
 		return v.appVersion;
 	}
 
-	public static String getAppName(App ctx){
+	public static String getAppName(Context ctx){
 		VersionUtils v = getVersion(ctx);
 		return v.appName;
 	}
 	
-	public static boolean isProductionVersion(App ctx){
+	public static boolean isProductionVersion(Context ctx){
 		VersionUtils v = getVersion(ctx);
 		return !v.appVersion.contains("#");
 	}
 
-	public static String getVersionAsURLParam(App ctx) {
+	public static String getVersionAsURLParam(Context ctx) {
 		try {
 			return "osmandver=" + URLEncoder.encode(getVersionForTracker(ctx), "UTF-8");
 		} catch (UnsupportedEncodingException e) {
@@ -72,22 +72,22 @@ public class VersionUtils {
 		}
 	}
 	
-	public static boolean isFreeVersion(App ctx){
+	public static boolean isFreeVersion(Context ctx){
 		return ctx.getPackageName().equals(FREE_VERSION_NAME) || 
 				ctx.getPackageName().equals(FREE_DEV_VERSION_NAME) ||
 				ctx.getPackageName().equals(FREE_CUSTOM_VERSION_NAME)
 				;
 	}
 
-	public static boolean isDeveloperVersion(App ctx){
+	public static boolean isDeveloperVersion(Context ctx){
 		return getAppName(ctx).contains("~") || ctx.getPackageName().equals(FREE_DEV_VERSION_NAME);
 	}
 
-	public static boolean isDeveloperBuild(App ctx){
+	public static boolean isDeveloperBuild(Context ctx){
 		return getAppName(ctx).contains("~");
 	}
 
-	public static String getVersionForTracker(App ctx) {
+	public static String getVersionForTracker(Context ctx) {
 		String v = VersionUtils.getAppName(ctx);
 		if(VersionUtils.isProductionVersion(ctx)){
 			v = VersionUtils.getFullVersion(ctx);

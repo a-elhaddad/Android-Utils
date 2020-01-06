@@ -1,13 +1,13 @@
 package com.legenty.utils.utils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.util.Log;
 
-import com.legenty.utils.App;
 import com.legenty.utils.BuildConfig;
 import com.legenty.utils.R;
 
@@ -82,9 +82,9 @@ public class LogUtil {
         text.append("\nProduct : ").append(Build.PRODUCT);
         text.append("\nBuild : ").append(Build.DISPLAY);
         text.append("\nVersion : ").append(Build.VERSION.RELEASE);
-        text.append("\nApp Version : ").append(VersionUtils.getAppName(App.getInstance()));
+        text.append("\nApp Version : ").append(VersionUtils.getAppName(AvenirUtils.getInstance()));
         try {
-            PackageInfo info = App.getInstance().getPackageManager().getPackageInfo(App.getInstance().getPackageName(), 0);
+            PackageInfo info = AvenirUtils.getInstance().getPackageManager().getPackageInfo(AvenirUtils.getInstance().getPackageName(), 0);
             if (info != null) {
                 text.append("\nApk Version : ").append(info.versionName).append(" ").append(info.versionCode);
             }
