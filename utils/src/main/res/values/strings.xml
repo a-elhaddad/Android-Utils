@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Utils</string>
+
+    <!-- Internal -->
+    <string name="default_notification_channel_id">avenir_utils_default_channel</string>
+    <string name="versionFeatures">+play_market </string>
+    <string name="send_report">Envoyer rapport</string>
+
+
+
+    <!-- Photo -->
+    <string name="take_photo">Prendre une photo</string>
+    <string name="take_photo_camera">Appareil photo</string>
+    <string name="take_photo_gallery">Galerie</string>
+    <string name="title_activity_splash">Splash</string>
+
+
+</resources>
